@@ -137,8 +137,10 @@ public:
             ALUresult = reg1+reg2;
         }else if(opcode == "sub"){
             ALUresult = reg1-reg2;
-        }else if(opcode == "lw" || opcode == "sw"){
-            ALUresult = reg1+offset;
+        }else if(opcode == "lw"){
+            ALUresult = reg1+offset/4;
+        }else if(opcode == "sw"){
+            ALUresult = reg1+offset/4;
         }
     }
 
@@ -239,14 +241,11 @@ public:
 
     void intoIF(string s){
         value.clear();
-        while (1) {
-            value.push_back(s.substr(0, s.find(" "))); 
-            s = s.substr(s.find(" ") + 1, s.length()); 
 
-            if (s.find(" ") == -1) {
-                value.push_back(s);
-                break;
-            }
+        stringstream ss;
+        ss << s;
+        while (getline(ss,s,' ')) {
+            value.push_back(s); 
         }
     }
 
