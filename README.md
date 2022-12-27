@@ -11,7 +11,6 @@ git clone https://github.com/Sunny1928/CO_mid_pipline.git
 ```
 cd CO_mid_pipline
 make
-
 ```
 ### 開始執行
 ```
