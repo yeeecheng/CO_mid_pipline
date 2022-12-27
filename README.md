@@ -7,8 +7,13 @@
 cd Desktop
 git clone https://github.com/Sunny1928/CO_mid_pipline.git
 ```
-
-### 接著，使用
-
+### 進入 CO_mid_pipline 中，並進行編譯
 ```
 cd CO_mid_pipline
+make
+
+```
+### 開始執行
+```
+./main
+```
