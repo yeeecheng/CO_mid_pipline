@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <iomanip>
+#include "IF.h"
 using namespace std;
 
 static int cycle = 0;
@@ -232,31 +234,7 @@ public:
     
 };
 
-class IF{
-public:
-    vector<string> value;
-    IF(){
-        value.push_back("null");
-    }
 
-    void intoIF(string s){
-        value.clear();
-
-        stringstream ss;
-        ss << s;
-        while (getline(ss,s,' ')) {
-            value.push_back(s); 
-        }
-    }
-
-    void printResult(){
-        cout<<setw(5)<<"if"<<'|'<<setw(5);
-        for (auto& ret : value){
-            cout<<ret;
-        }
-        cout<<endl;
-    }
-};
 
 class Pipelined{
 public:
@@ -375,7 +353,7 @@ public:
 };
 
 int main(){
-    ifstream ifs("q8.txt",ios::in);
+    ifstream ifs(".\\test_data\\q1.txt",ios::in);
     if(!ifs.is_open()){
         cout<<"fail to open this file"<<endl;
         return 1;
