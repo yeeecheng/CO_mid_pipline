@@ -16,6 +16,7 @@ make
 ```cmd
 #使用預設
 ./main 
+
 # 放入檔案路徑
 ./main file_path
 ```
