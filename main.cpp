@@ -2,137 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <iomanip>
-#include "IF.h"
-#include "ID.h"
-#include "EX.h"
-#include "MEM.h"
-#include "WB.h"
+#include "..\\CO_mid_pipline\\lib\\include\\CPU_pipeline.h"
 using namespace std;
-
-static int cycle = 0;
-
-
-
-
-
-
-
-class Pipelined{
-public:
-    IF ifo;
-    ID ido;
-    EX exo;
-    MEM memo;
-    WB wbo;
-    bool again;
-    int reg[32];
-    int mem[32];
-
-    Pipelined(){
-        again = false;
-        reg[0] = 0;
-        for(int i=1; i<32; i++){
-            reg[i]=1;
-        }
-        for(int i=0; i<32; i++){
-            mem[i]=1;
-        }
-    }
-
-    // RegDst ALUSrc Branch MemRead MemWrite RegWrite MemtoReg
-    void circle(vector<string> arr){
-            // else if((exo.opcode == "sw" || exo.opcode == "lw" || exo.opcode == "add" || exo.opcode == "sub") &&
-        
-        for(int index = 0; index<arr.size(); index++){
-            // cout<<"index: "<<index<<endl;
-            // cout<<"size: "<<arr.size()<<endl;
-        do{
-            // cout<<exo.opcode<<' ' << ido.rs <<' '<< exo.rt <<' '<< ido.rt <<' '<< exo.rt <<' '<< ido.rt <<' '<< exo.rd << endl;
-            // cout<<memo.opcode<<' ' << ido.rs <<' '<< memo.rt <<' '<< ido.rt <<' '<< memo.rt <<' '<< ido.rt <<' '<< memo.rd << endl;
-            if(memo.signal[5] == '1' &&  ido.opcode !="null" &&
-                (ido.rs == memo.rt || ido.rt == memo.rt || ido.rt == memo.rd)){
-                    // cout<<"s1"<<endl;
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
-                exo.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
-                ido.readReg(reg);
-                again = true;
-            }
-            // sw, lw in ex 1000010
-            else if(exo.signal[5] == '1' && ido.opcode !="null" &&
-                (ido.rs == exo.rt || ido.rt == exo.rt || ido.rt == exo.rd)){
-                    // cout<<"s2"<<endl;
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
-                exo.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
-                ido.readReg(reg);
-                again = true;
-            }
-            // sub add
-            else if(memo.signal[6] == '0' &&
-                (ido.rs == memo.rd || ido.rt == memo.rd)){
-                    // cout<<"s3"<<endl;
-                    // cout<<memo.opcode<<' ' << ido.rs <<' '<< memo.rd <<' '<< ido.rt <<' '<< memo.rd << endl;
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
-                exo.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
-                ido.readReg(reg);
-                again = true;
-            }
-            else if(exo.signal[6] == '0' &&
-                (ido.rs == exo.rd || ido.rt == exo.rd)){
-                    // cout<<"s4"<<endl;
-                    wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
-                    memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
-                    exo.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
-                    ido.readReg(reg);
-                    again = true;
-            }
-            else{
-                // cout<<"s5"<<endl;
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
-                exo.intoEX(ido.opcode, ido.signal, ido.rs, ido.rt, ido.rd, ido.offset, ido.reg1, ido.reg2);
-                if(ido.opcode == "beq" && ido.beq()){
-                    // cout<<"s6"<<endl;
-                    ido.readReg(reg);
-                    index = index+ ido.offset-1;
-                    vector<string> n;
-                    n.push_back("null");
-                    ido.intoID(n, reg);
-                }
-                else ido.intoID(ifo.value, reg);
-                ifo.intoIF(arr[index]);
-                again = false;
-            }
-
-            cycle++;
-            cout<<"cycle: "<<cycle<<endl;
-            cout<<setw(5)<<"stage"<<'|'<<setw(5)<<"op"<<'|'<<setw(8)<<"signal"<<'|'<<setw(3)<<"rs"<<'|'<<setw(3)<<"rt"<<'|'<<setw(3)<<"rd"<<'|'<<setw(7)<<"offset"<<'|'<<setw(5)<<"reg1"<<'|'<<setw(5)<<"reg2"<<'|'<<setw(11)<<"ALUresult"<<'|'<<setw(14)<<"ReadmemValue"<<'|'<<setw(15)<<"RegWriteValue"<<'|'<<endl;
-            ifo.printResult();
-            ido.printResult();
-            exo.printResult();
-            memo.printResult();
-            wbo.printResult();
-            cout<<"reg ";
-            for(int i = 0; i<32; i++){
-                cout<<reg[i]<<' ';
-            }
-            cout<<endl;
-            cout<<"mem ";
-            for(int i = 0; i<32; i++){
-                cout<<mem[i]<<' ';
-            }
-            cout<<endl;
-            cout<<endl;
-            
-        }while(again);
-        }
-        
-        
-    }
-};
 
 int main(){
     ifstream ifs(".\\test_data\\q1.txt",ios::in);
@@ -155,7 +26,7 @@ int main(){
     arr.push_back("null");
     arr.push_back("null");
     arr.push_back("null");
-    
+
     Pipelined pipe;
     pipe.circle(arr);
 
