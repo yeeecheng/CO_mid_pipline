@@ -18,7 +18,7 @@ make
 ./main 
 
 # 放入檔案路徑
-./main file_path
+./main <file_path>
 ```
 
 ## 專案架構
