@@ -21,20 +21,34 @@ make
 ```
 
 ## 專案架構
-```CO-mid_pipline
-│   README.md
-│   main.cpp
-│   Makefile
-│
-└───lib
-│   │
-│   └───include
-│   │   │   file111.txt
-│   │   │   file112.txt
-│   │   │   ...
-│
-│
-└───folder2
-    │   file021.txt
-    │   file022.txt
+```
+CO-mid_pipline
+├── lib
+│   ├── include
+│   │   ├── CPU_pipeline.h
+│   │   ├── EX.h
+│   │   ├── ID.h
+│   │   ├── IF.h
+│   │   ├── MEM.h
+│   │   └── WB.h
+│   └── src
+│       ├── CPU_pipeline.cpp
+│       ├── EX.cpp
+│       ├── ID.cpp
+│       ├── IF.cpp
+│       ├── MEM.cpp
+│       └── WB.cpp
+├── main.cpp
+├── Makefile
+├── README.md
+└── test_data
+    ├── q1.txt
+    ├── q2.txt
+    ├── q3.txt
+    ├── q4.txt
+    ├── q5.txt
+    ├── q6.txt
+    ├── q7.txt
+    └── q8.txt
+
 ```
