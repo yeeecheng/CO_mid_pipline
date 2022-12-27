@@ -4,7 +4,8 @@
 #include "WB.h"
 using namespace std;
 
-
+// WB建構值
+// 初始化opcode, signal, rs, rt, rd, RegWriteValue
 WB::WB(){
     opcode = "null";
     signal = "null";
@@ -14,6 +15,7 @@ WB::WB(){
     RegWriteValue = -1;
 }
 
+// 進入WB
 void WB::intoWB(string op, string sig, int s, int t, int d, int rwv, int rmv, int *reg){
     opcode=op;
     if(opcode == "null") {
@@ -36,7 +38,9 @@ void WB::intoWB(string op, string sig, int s, int t, int d, int rwv, int rmv, in
     }
 }
 
+// 輸出WB的結果
+// 也就是opcode, siginal, rs, rt, rd的值
 void WB::printResult(){
     if(opcode == "null") cout<<setw(5)<<"wb"<<'|'<<setw(5)<<opcode<<'|'<<setw(9)<<'|'<<setw(4)<<'|'<<setw(4)<<'|'<<setw(4)<<'|'<<setw(8)<<'|'<<setw(6)<<'|'<<setw(6)<<'|'<< setw(12)<<'|'<<setw(15)<<'|'<<setw(16)<<'|'<<endl;
-    else cout<<setw(5)<<"wb"<<'|'<<setw(5)<<opcode<<'|'<<setw(8)<<signal<<'|'<<setw(3)<<rs<<'|'<<setw(3)<<rt<<'|'<<setw(3)<<rd<<'|'<<endl;
+    else cout<<setw(5)<<"wb"<<'|'<<setw(5)<<opcode<<'|'<<setw(8)<<signal<<'|'<<setw(3)<<rs<<'|'<<setw(3)<<rt<<'|'<<setw(3)<<rd<<'|'<<setw(8)<<'|'<<setw(6)<<'|'<<setw(6)<<'|'<< setw(12)<<'|'<<setw(15)<<'|'<<setw(16)<<'|'<<endl;
 }

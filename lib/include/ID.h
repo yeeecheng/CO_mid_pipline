@@ -6,10 +6,13 @@
 #include <sstream>
 using namespace std;
 
+
 class ID{
     
     public:
+        // opcode是指令
         string opcode;
+        // signal是由 RegDst, ALUSrc,　Branch, MemRead, MemWrite,　RegWrite, MemtoReg組成的
         string signal;
         int rs;
         int rt;

@@ -93,14 +93,21 @@ void Pipelined::circle(vector<string> arr){
             exo.printResult();
             memo.printResult();
             wbo.printResult();
-            cout<<"reg ";
+
+            cout<<endl;
+            cout<<"index|";
             for(int i = 0; i<32; i++){
-                cout<<reg[i]<<' ';
+                cout<<setw(2)<<i<<"|";
             }
             cout<<endl;
-            cout<<"mem ";
+            cout<<"reg  |";
             for(int i = 0; i<32; i++){
-                cout<<mem[i]<<' ';
+                cout<<setw(2)<<reg[i]<<"|";
+            }
+            cout<<endl;
+            cout<<"mem  |";
+            for(int i = 0; i<32; i++){
+                cout<<setw(2)<<mem[i]<<"|";
             }
             cout<<endl;
             cout<<endl;

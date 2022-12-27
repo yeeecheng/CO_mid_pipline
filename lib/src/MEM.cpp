@@ -5,7 +5,8 @@
 #include <iomanip>
 using namespace std;
 
-
+// MEM建構值
+// 初始化opcode, signal, rs, rt, rd, ALUresult, ReadmemValue
 MEM::MEM(){
     opcode = "null";
     signal = "null";
@@ -16,7 +17,7 @@ MEM::MEM(){
     ReadmemValue = -1;
 }
 
-
+// 進入MEM
 void MEM::intoMEM(string op, string sig, int s, int t, int d, int aluresult, int wd, int *mem){
     opcode=op;
     rs=s;
@@ -36,6 +37,8 @@ void MEM::intoMEM(string op, string sig, int s, int t, int d, int aluresult, int
     }
 }
 
+// 輸出MEM的結果
+// 也就是opcode, signal, rs, rt, rd, ALUresult, ReadmemValue的值
 void MEM::printResult(){
     if(opcode == "null") cout<<setw(5)<<"mem"<<'|'<<setw(5)<<opcode<<'|'<<setw(9)<<'|'<<setw(4)<<'|'<<setw(4)<<'|'<<setw(4)<<'|'<<setw(8)<<'|'<<setw(6)<<'|'<<setw(6)<<'|'<< setw(12)<<'|'<<setw(15)<<'|'<<setw(16)<<'|'<<endl;
         else cout<<setw(5)<<"mem"<<'|'<<setw(5)<<opcode<<'|'<<setw(8)<<signal<<'|'<<setw(3)<<rs<<'|'<<setw(3)<<rt<<'|'<<setw(3)<<rd

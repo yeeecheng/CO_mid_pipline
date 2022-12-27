@@ -8,11 +8,11 @@ using namespace std;
 
 class IF{
     public:
-        
+
         IF();
         void intoIF(string);
         void printResult();
-
+        // value存指令
         vector<string> value;
 
 };
