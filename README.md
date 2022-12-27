@@ -16,6 +16,25 @@ make
 ```cmd
 #使用預設
 ./main 
-# 放入檔案路
+# 放入檔案路徑
 ./main file_path
+```
+
+## 專案架構
+```CO-mid_pipline
+│   README.md
+│   main.cpp
+│   Makefile
+│
+└───lib
+│   │
+│   └───include
+│   │   │   file111.txt
+│   │   │   file112.txt
+│   │   │   ...
+│
+│
+└───folder2
+    │   file021.txt
+    │   file022.txt
 ```
