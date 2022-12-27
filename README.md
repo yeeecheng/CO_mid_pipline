@@ -63,6 +63,10 @@ CO-mid_pipline
 
 ## 程式說明
 
+## 遇到問題
+
+## 分工
+
 ## Contributors
 |Name|Github Link|
 | :-----|:-----|
