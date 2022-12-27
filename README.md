@@ -26,6 +26,14 @@ make
 # 放入檔案路徑
 ./main <file_path>
 ```
+清除所有.o檔，不包含執行檔
+```cmd
+make clean
+```
+清除所有.o檔，包含執行檔
+```cmd
+make clean-all
+```
 
 ## 專案架構
 ```
