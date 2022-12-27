@@ -1,5 +1,11 @@
 # 2022計組期末專題 - CPU pipeline (沒有forwading版本）
 
+## 環境
+* Ubuntu 22.04.1 LTS
+* Vscode
+* C/C++ standard: C11
+* C/C++ compiler: g++
+
 ## 如何使用
 首先，開啟你的bash界面，並輸入以下指令，將此專案下載到本地端
 
