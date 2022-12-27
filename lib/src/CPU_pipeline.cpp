@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "C:\Users\yicheng\Desktop\CO_mid_pipline\lib\include\CPU_pipeline.h"
+#include "CPU_pipeline.h"
 
 using namespace std;
 

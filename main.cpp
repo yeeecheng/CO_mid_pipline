@@ -2,11 +2,11 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "..\\CO_mid_pipline\\lib\\include\\CPU_pipeline.h"
+#include "CPU_pipeline.h"
 using namespace std;
 
 int main(){
-    ifstream ifs(".\\test_data\\q1.txt",ios::in);
+    ifstream ifs("./test_data/q1.txt",ios::in);
     if(!ifs.is_open()){
         cout<<"fail to open this file"<<endl;
         return 1;

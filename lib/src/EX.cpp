@@ -1,4 +1,4 @@
-#include "C:\Users\yicheng\Desktop\CO_mid_pipline\lib\include\EX.h"
+#include "EX.h"
 #include <iostream>
 #include <string>
 using namespace std;
