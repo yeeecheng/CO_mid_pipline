@@ -14,5 +14,8 @@ make
 ```
 ### 開始執行
 ```
-./main
+#使用預設
+./main 
+# 放入檔案路
+./main file_path
 ```
