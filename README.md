@@ -23,6 +23,9 @@ make
 ## 專案架構
 ```
 CO-mid_pipline
+├── main.cpp
+├── Makefile
+├── README.md
 ├── lib
 │   ├── include
 │   │   ├── CPU_pipeline.h
@@ -38,9 +41,6 @@ CO-mid_pipline
 │       ├── IF.cpp
 │       ├── MEM.cpp
 │       └── WB.cpp
-├── main.cpp
-├── Makefile
-├── README.md
 └── test_data
     ├── q1.txt
     ├── q2.txt
