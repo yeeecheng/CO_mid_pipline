@@ -66,6 +66,5 @@ CO-mid_pipline
 ## Contributors
 |Name|Github Link|
 | :-----|:-----|
-|Yi-Cheng Liao |https://github.com/yeeecheng| 
 |Yu-Yi Chuang | https://github.com/Sunny1928|
-
+|Yi-Cheng Liao |https://github.com/yeeecheng| 
