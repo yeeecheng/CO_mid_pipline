@@ -28,7 +28,7 @@ build/%.o: lib/src/%.cpp | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 
 #其他指令 
 .PHONY:  clean clean-all
