@@ -78,7 +78,8 @@ CO-mid_pipline
 
 ```
 ## 程式流程
-<img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "60%">
+<img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "70%">
+
 ## 程式說明
 
 ## 遇到問題
