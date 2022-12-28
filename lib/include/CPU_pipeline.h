@@ -14,9 +14,11 @@ class Pipelined{
         EX exo;
         MEM memo;
         WB wbo;
-        bool again;
         int reg[32];
         int mem[32];
+        // 判斷要不要插入新的指令
+        bool again;
+        // cycle的數量
         int cycle;
         Pipelined();
         void circle(vector<string> arr);

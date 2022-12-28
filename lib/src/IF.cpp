@@ -12,10 +12,12 @@ IF::IF(){
 }
 
 // 進入IF
-// 先清空value vector，把指令存入value vector
 void IF::intoIF(string s){
-    value.clear();
     
+    // 先清空value vector
+    value.clear();
+
+    // 把指令存入value vector
     stringstream ss;
     ss << s;
     while (getline(ss,s,' ')) {

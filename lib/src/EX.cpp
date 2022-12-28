@@ -19,6 +19,7 @@ EX::EX(){
 // 進入EX
 // 傳入ID的opcode, signal, rs, rt, rd, offset, reg1, reg2
 void EX::intoEX(string op, string sig, int s, int t, int d, int o, int r1, int r2){
+    
     // 存入EX對應到的變數中
     opcode=op;
     signal = sig;

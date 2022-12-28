@@ -17,18 +17,23 @@ ID::ID(){
 // 進入ID
 // 傳IF的指令vector和暫存器進入ID
 void ID::intoID(vector<string> o, int *reg){
+
     // 第一個vector是opcode
     opcode=o[0];
+
     // 若opcode是null，則結束ID程序
     if(opcode == "null") {
         return;
     }
+
     // 若opcode不是null，則處理字串
+    // 存入ID對應到的變數中
     signal="";
     rs=0;
     rt=0;
     rd=0;
     offset=0;
+
     // 若opcode是lw，signal會是0101011
     // 其指令會是lw rt, offset(rs)的形式，處理字串存入對應到的變數
     // 讀完 rt, rs後，會到再去讀對應到的暫存器

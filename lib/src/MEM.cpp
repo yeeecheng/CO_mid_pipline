@@ -18,21 +18,29 @@ MEM::MEM(){
 }
 
 // 進入MEM
+// 傳入EX的opcode, signal, rs, rt, rd, ALUresult, reg2, 還有記憶體
 void MEM::intoMEM(string op, string sig, int s, int t, int d, int aluresult, int wd, int *mem){
+    
+    // 存入MEM對應到的變數中
     opcode=op;
     rs=s;
     rt=t;
     rd=d;
     ALUresult = aluresult;
+
+    // 若opcode是null，則結束MEM程序
     if(opcode == "null") {
         return;
     }
+    // 若opcode不是null，則切割signal字串
     signal="  "+sig.substr(2,7);
     
-    // memory
+    // 若opcode是lw，則讀mem裡且位置是ALUresult的資料
     if(opcode == "lw"){
         ReadmemValue = mem[ALUresult];
-    }else if(opcode == "sw"){
+    }
+    // 若opcode是sw，則把資料存到mem裡且位置是ALUresult的位置
+    else if(opcode == "sw"){
         mem[ALUresult] = wd;
     }
 }
