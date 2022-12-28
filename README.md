@@ -5,8 +5,12 @@
 * Vscode
 * C/C++ standard: C11
 * C/C++ compiler: g++
-
+> Windows系統可以編譯，但因為cmd指令不同，clean、clean-all無法使用
 ## 如何使用
+
+> 使用makefile的方式避免編譯環境上的問題，你只需要確保你有開發環境中的編譯器及make的工具 
+
+
 首先，開啟你的bash界面，並輸入以下指令，將此專案下載到本地端
 
 ```cmd
