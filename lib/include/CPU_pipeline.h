@@ -9,11 +9,11 @@
 
 class Pipelined{
     public:
-        IF ifo;
-        ID ido;
-        EX exo;
-        MEM memo;
-        WB wbo;
+        IF ifStage;
+        ID idStage;
+        EX exStage;
+        MEM memStage;
+        WB wbStage;
         int reg[32];
         int mem[32];
         // 判斷要不要插入新的指令
@@ -23,6 +23,7 @@ class Pipelined{
 
         Pipelined();
         void circle(vector<string> arr);
+        void logCycle();
 };
 
 #endif

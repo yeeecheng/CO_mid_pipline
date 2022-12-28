@@ -30,33 +30,33 @@ void Pipelined::circle(vector<string> arr){
         do{
             if(
                 // 當lw, sw，在MEM階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall
-                (memo.signal[5] == '1' &&  ido.opcode !="null" &&
-                (ido.rs == memo.rt || ido.rt == memo.rt || ido.rt == memo.rd)) ||
+                (memStage.signal[5] == '1' &&  idStage.opcode !="null" &&
+                (idStage.rs == memStage.rt || idStage.rt == memStage.rt || idStage.rt == memStage.rd)) ||
                 
                 // 當lw, sw，在EX階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall
-                (exo.signal[5] == '1' && ido.opcode !="null" &&
-                (ido.rs == exo.rt || ido.rt == exo.rt || ido.rt == exo.rd)) || 
+                (exStage.signal[5] == '1' && idStage.opcode !="null" &&
+                (idStage.rs == exStage.rt || idStage.rt == exStage.rt || idStage.rt == exStage.rd)) || 
                 
                 // 當sub, add，在MEM階段的rd，在ID階段的rs, rt有用到，就要加入stall
-                (memo.signal[6] == '0' &&
-                (ido.rs == memo.rd || ido.rt == memo.rd)) || 
+                (memStage.signal[6] == '0' &&
+                (idStage.rs == memStage.rd || idStage.rt == memStage.rd)) || 
 
                 // 當sub, add，在EX階段的rd，在ID階段的rs, rt有用到，就要加入stall
-                (exo.signal[6] == '0' &&
-                (ido.rs == exo.rd || ido.rt == exo.rd))
+                (exStage.signal[6] == '0' &&
+                (idStage.rs == exStage.rd || idStage.rt == exStage.rd))
             ){
                 
                 // MEM的指令進入WB
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
+                wbStage.intoWB(memStage.opcode, memStage.signal, memStage.rs, memStage.rt, memStage.rd, memStage.ALUresult, memStage.ReadmemValue, reg);
                 
                 // EX的指令進入MEM
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
+                memStage.intoMEM(exStage.opcode, exStage.signal, exStage.rs, exStage.rt, exStage.rd, exStage.ALUresult, exStage.reg2, mem);
                 
                 // 在EX加入stall，使原本的ID停留在ID
-                exo.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
+                exStage.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
                 
                 // 讀取ID階段在rs, rt位置的暫存器
-                ido.readReg(reg);
+                idStage.readReg(reg);
                 
                 // 要循環
                 again = true;
@@ -65,27 +65,27 @@ void Pipelined::circle(vector<string> arr){
             else{
                 
                 // MEM的指令進入WB
-                wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
+                wbStage.intoWB(memStage.opcode, memStage.signal, memStage.rs, memStage.rt, memStage.rd, memStage.ALUresult, memStage.ReadmemValue, reg);
                 
                 // EX的指令進入MEM
-                memo.intoMEM(exo.opcode, exo.signal, exo.rs, exo.rt, exo.rd, exo.ALUresult, exo.reg2, mem);
+                memStage.intoMEM(exStage.opcode, exStage.signal, exStage.rs, exStage.rt, exStage.rd, exStage.ALUresult, exStage.reg2, mem);
                 
                 // ID的指令進入EX
-                exo.intoEX(ido.opcode, ido.signal, ido.rs, ido.rt, ido.rd, ido.offset, ido.reg1, ido.reg2);
+                exStage.intoEX(idStage.opcode, idStage.signal, idStage.rs, idStage.rt, idStage.rd, idStage.offset, idStage.reg1, idStage.reg2);
                 
                 // 若ID的opcode是beq，且兩個暫存器相等
-                if(ido.opcode == "beq" && ido.beq()){
+                if(idStage.opcode == "beq" && idStage.beq()){
                     // 計算指令要跳到的位置，且讓ID先清空
-                    index = index+ ido.offset-1;
+                    index = index+ idStage.offset-1;
                     vector<string> n;
                     n.push_back("null");
-                    ido.intoID(n, reg);
+                    idStage.intoID(n, reg);
                 }
                 // 若否，則IF的指令進入ID
-                else ido.intoID(ifo.value, reg);
+                else idStage.intoID(ifStage.value, reg);
 
                 // 指令進入IF
-                ifo.intoIF(arr[index]);
+                ifStage.intoIF(arr[index]);
 
                 // 不用循環
                 again = false;
@@ -93,35 +93,42 @@ void Pipelined::circle(vector<string> arr){
 
             // 循環加一
             cycle++; 
-
+            
             // 輸出所有結果
-            cout<<"cycle: "<<cycle<<endl;
-            cout<<setw(5)<<"stage"<<'|'<<setw(5)<<"op"<<'|'<<setw(8)<<"signal"<<'|'<<setw(3)<<"rs"<<'|'<<setw(3)<<"rt"<<'|'<<setw(3)<<"rd"<<'|'<<setw(7)<<"offset"<<'|'<<setw(5)<<"reg1"<<'|'<<setw(5)<<"reg2"<<'|'<<setw(11)<<"ALUresult"<<'|'<<setw(14)<<"ReadmemValue"<<'|'<<setw(15)<<"RegWriteValue"<<'|'<<endl;
-            ifo.printResult();
-            ido.printResult();
-            exo.printResult();
-            memo.printResult();
-            wbo.printResult();
-
-            cout<<endl;
-            cout<<"index|";
-            for(int i = 0; i<32; i++){
-                cout<<setw(2)<<i<<"|";
-            }
-            cout<<endl;
-            cout<<"reg  |";
-            for(int i = 0; i<32; i++){
-                cout<<setw(2)<<reg[i]<<"|";
-            }
-            cout<<endl;
-            cout<<"mem  |";
-            for(int i = 0; i<32; i++){
-                cout<<setw(2)<<mem[i]<<"|";
-            }
-            cout<<endl;
-            cout<<endl;
+            logCycle();
             
         }while(again);
     }
         
+}
+
+// 輸出現階段的cycle資料
+void Pipelined::logCycle(){
+
+    cout<<"cycle: "<<cycle<<endl;
+    cout<<setw(5)<<"stage"<<'|'<<setw(5)<<"op"<<'|'<<setw(8)<<"signal"<<'|'<<setw(3)<<"rs"<<'|'<<setw(3)<<"rt"<<'|'<<setw(3)<<"rd"<<'|'<<setw(7)<<"offset"<<'|'<<setw(5)<<"reg1"<<'|'<<setw(5)<<"reg2"<<'|'<<setw(11)<<"ALUresult"<<'|'<<setw(14)<<"ReadmemValue"<<'|'<<setw(15)<<"RegWriteValue"<<'|'<<endl;
+    ifStage.printResult();
+    idStage.printResult();
+    exStage.printResult();
+    memStage.printResult();
+    wbStage.printResult();
+
+    cout<<endl;
+    cout<<"index|";
+    for(int i = 0; i<32; i++){
+        cout<<setw(2)<<i<<"|";
+    }
+    cout<<endl;
+    cout<<"reg  |";
+    for(int i = 0; i<32; i++){
+        cout<<setw(2)<<reg[i]<<"|";
+    }
+    cout<<endl;
+    cout<<"mem  |";
+    for(int i = 0; i<32; i++){
+        cout<<setw(2)<<mem[i]<<"|";
+    }
+    cout<<endl;
+    cout<<endl;
+            
 }

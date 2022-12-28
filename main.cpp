@@ -43,7 +43,8 @@ int main(int argc,char **argv){
     while(getline(ss, s)){
         arr.push_back(s);
     }
-    // 放入四個null指令，來把最後一個指令往前推
+
+    // 最後在放入四個null指令，讓最後一個指令可以確保被推到最後一個階段（WB)
     arr.push_back("null");
     arr.push_back("null");
     arr.push_back("null");
