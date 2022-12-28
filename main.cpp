@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc,char **argv){
 
     // 預設檔案路徑
-    string file_path ="./test_data/q4.txt";
+    string file_path ="./test_data/q1.txt";
     
     // 判斷是否放超過一個的檔案路徑
     if(argc > 2){

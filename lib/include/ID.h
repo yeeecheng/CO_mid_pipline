@@ -18,7 +18,6 @@ class ID{
         int rt;
         int rd;
         int offset;
-
         int reg1;
         int reg2;
 

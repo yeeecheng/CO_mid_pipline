@@ -19,14 +19,14 @@ Pipelined::Pipelined(){
 }
 
 // 開始跑所有指令
-// 傳入所有不到的指令
+// 傳入所有指令
 void Pipelined::circle(vector<string> arr){
 
 
     // 跑array裏element的數量
     for(int index = 0; index<arr.size(); index++){
 
-        // 使用do是因為在again為false的情況下至少跑一次
+        // 使用do是，因為在again為false的情況下，至少跑一次
         do{
             if(
                 // 當lw, sw，在MEM階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall
@@ -44,7 +44,7 @@ void Pipelined::circle(vector<string> arr){
                 // 當sub, add，在EX階段的rd，在ID階段的rs, rt有用到，就要加入stall
                 (exo.signal[6] == '0' &&
                 (ido.rs == exo.rd || ido.rt == exo.rd))
-                ){
+            ){
                 
                 // MEM的指令進入WB
                 wbo.intoWB(memo.opcode, memo.signal, memo.rs, memo.rt, memo.rd, memo.ALUresult, memo.ReadmemValue, reg);
@@ -61,6 +61,7 @@ void Pipelined::circle(vector<string> arr){
                 // 要循環
                 again = true;
             }
+            // 正常執行
             else{
                 
                 // MEM的指令進入WB
@@ -79,7 +80,6 @@ void Pipelined::circle(vector<string> arr){
                     vector<string> n;
                     n.push_back("null");
                     ido.intoID(n, reg);
-                    
                 }
                 // 若否，則IF的指令進入ID
                 else ido.intoID(ifo.value, reg);

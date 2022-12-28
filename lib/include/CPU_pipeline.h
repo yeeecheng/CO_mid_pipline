@@ -20,6 +20,7 @@ class Pipelined{
         bool again;
         // cycle的數量
         int cycle;
+
         Pipelined();
         void circle(vector<string> arr);
 };

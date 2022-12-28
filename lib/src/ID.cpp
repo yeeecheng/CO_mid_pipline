@@ -36,45 +36,39 @@ void ID::intoID(vector<string> o, int *reg){
 
     // 若opcode是lw，signal會是0101011
     // 其指令會是lw rt, offset(rs)的形式，處理字串存入對應到的變數
-    // 讀完 rt, rs後，會到再去讀對應到的暫存器
     if(opcode == "lw"){
         signal = "0101011";
         rt = stoi(o[1].substr(o[1].find('$')+1, o[1].find(',')));
         rs = stoi(o[2].substr(o[2].find('$')+1, o[2].find(')')));
         offset = stoi(o[2].substr(0, o[2].find('(')));
-        this->readReg(reg);
     }
     // 若opcode是sw，signal會是x10010x
     // 其指令會是sw $rt, offset($rs)的形式，處理字串存入對應到的變數
-    // 讀完 rt, rs後，會到再去讀對應到的暫存器
     else if(opcode == "sw"){
         signal = "x10010x";
         rt = stoi(o[1].substr(o[1].find('$')+1, o[1].find(',')));
         rs = stoi(o[2].substr(o[2].find('$')+1, o[2].find(')')));
         offset = stoi(o[2].substr(0, o[2].find('(')));
-        this->readReg(reg);
-
     }
     // 若opcode是add或sub，signal會是1000010
     // 其指令會是add $rd, $rs, $rt的形式處理字串存入對應到的變數
-    // 讀完 rt, rs後，會到再去讀對應到的暫存器
     else if(opcode == "add" || opcode == "sub"){
         signal = "1000010";
         rd = stoi(o[1].substr(o[1].find('$')+1, o[1].find(',')));
         rs = stoi(o[2].substr(o[2].find('$')+1, o[2].find(',')));
         rt = stoi(o[3].substr(o[3].find('$')+1, o[3].length()));
-        this->readReg(reg);
     }
     // 若opcode是beq，signal會是x01000x
     // 其指令會是add $rs, $rt, offset的形式，處理字串存入對應到的變數
-    // 讀完 rt, rs後，會到再去讀對應到的暫存器
     else if(opcode == "beq"){
         signal = "x01000x";
         rs = stoi(o[1].substr(o[1].find('$')+1, o[1].find(',')));
         rt = stoi(o[2].substr(o[2].find('$')+1, o[2].length()));
         offset = stoi(o[3]);
-        this->readReg(reg);
     }
+
+    // 讀完 rt, rs後，會到再去讀對應到的暫存器
+    this->readReg(reg);
 }
 
 // 使用rs, rt讀取暫存器
