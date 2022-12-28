@@ -6,20 +6,23 @@
 using namespace std;
 
 class EX{
-    public:
-    string opcode;
-    string signal;
-    int rs;
-    int rt;
-    int rd;
-    int reg1;
-    int reg2;
-    int ALUresult;
-    int offset;
 
-    EX();
-    void intoEX(string, string, int, int, int, int, int, int);
-    void printResult();
+    public:
+        
+        EX();
+        void intoEX(string, string, int, int, int, int, int, int);
+        void printResult();
+        
+        string opcode;
+        string signal;
+        int rs;
+        int rt;
+        int rd;
+        int reg1;
+        int reg2;
+        int ALUresult;
+        int offset;
+
     
 };
 

@@ -67,7 +67,7 @@ void ID::intoID(vector<string> o, int *reg){
         offset = stoi(o[3]);
     }
 
-    // 讀完 rt, rs後，會到再去讀對應到的暫存器
+    // 讀完 rt, rs後，會再去讀對應到的暫存器
     this->readReg(reg);
 }
 

@@ -44,13 +44,13 @@ int main(int argc,char **argv){
         arr.push_back(s);
     }
 
-    // 最後在放入四個null指令，讓最後一個指令可以確保被推到最後一個階段（WB)
+    // 最後在放入四個null階段，讓最後一個指令可以確保被推到最後一個階段（WB)
     arr.push_back("null");
     arr.push_back("null");
     arr.push_back("null");
     arr.push_back("null");
 
-    // 初始化piplined
+    // 初始化pipelined
     Pipelined pipe;
 
     //  開始循環指令

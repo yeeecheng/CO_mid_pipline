@@ -8,7 +8,13 @@
 #include "WB.h"
 
 class Pipelined{
+    
     public:
+        Pipelined();
+        void circle(vector<string> );
+        void logCycle();
+    
+    private:
         IF ifStage;
         ID idStage;
         EX exStage;
@@ -20,10 +26,6 @@ class Pipelined{
         bool again;
         // cycle的數量
         int cycle;
-
-        Pipelined();
-        void circle(vector<string> arr);
-        void logCycle();
 };
 
 #endif

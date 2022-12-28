@@ -7,14 +7,16 @@
 using namespace std;
 
 class IF{
+    
     public:
-
-        // value存指令
-        vector<string> value;
 
         IF();
         void intoIF(string);
         void printResult();
+        
+        // value存指令
+        vector<string> value;
+
         
 
 };
