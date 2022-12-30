@@ -55,7 +55,7 @@ void Pipelined::circle(vector<string> arr){
                 // 在EX加入stall，使原本的ID停留在ID
                 exStage.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
                 
-                // 讀取ID階段在rs, rt位置的暫存器
+                // 讀取ID階段在rs, rt位置的暫存器，因為前面WB會修改
                 idStage.readReg(reg);
                 
                 // 要循環
