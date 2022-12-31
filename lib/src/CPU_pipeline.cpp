@@ -29,19 +29,19 @@ void Pipelined::circle(vector<string> arr){
         // 使用do是，因為在again為false的情況下，至少跑一次
         do{
             if(
-                // 當lw, sw，在MEM階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall
+                // 當lw, sw，在MEM階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall (MEM hazard)
                 (memStage.signal[5] == '1' &&  idStage.opcode !="null" &&
                 (idStage.rs == memStage.rt || idStage.rt == memStage.rt || idStage.rt == memStage.rd)) ||
                 
-                // 當lw, sw，在EX階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall
+                // 當lw, sw，在EX階段的rt, rd，在ID階段的rs, rt有用到，就要加入stall (EX hazard)
                 (exStage.signal[5] == '1' && idStage.opcode !="null" &&
                 (idStage.rs == exStage.rt || idStage.rt == exStage.rt || idStage.rt == exStage.rd)) || 
                 
-                // 當sub, add，在MEM階段的rd，在ID階段的rs, rt有用到，就要加入stall
+                // 當sub, add，在MEM階段的rd，在ID階段的rs, rt有用到，就要加入stall (MEM hazard)
                 (memStage.signal[6] == '0' &&
                 (idStage.rs == memStage.rd || idStage.rt == memStage.rd)) || 
 
-                // 當sub, add，在EX階段的rd，在ID階段的rs, rt有用到，就要加入stall
+                // 當sub, add，在EX階段的rd，在ID階段的rs, rt有用到，就要加入stall (EX hazard)
                 (exStage.signal[6] == '0' &&
                 (idStage.rs == exStage.rd || idStage.rt == exStage.rd))
             ){
@@ -52,7 +52,7 @@ void Pipelined::circle(vector<string> arr){
                 // EX的指令進入MEM
                 memStage.intoMEM(exStage.opcode, exStage.signal, exStage.rs, exStage.rt, exStage.rd, exStage.ALUresult, exStage.reg2, mem);
                 
-                // 在EX加入stall，使原本的ID停留在ID
+                // 在EX加入stall，使原本的ID停留在ID，也就是不讓ID的值傳入
                 exStage.intoEX("null", "null", -1, -1, -1, -1, -1, -1);
                 
                 // 讀取ID階段在rs, rt位置的暫存器，因為前面WB會修改

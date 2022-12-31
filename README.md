@@ -81,7 +81,7 @@ CO-mid_pipline
 <img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "70%">
 
 ## 程式說明
-
+程式碼中,我們的ID所用到的rs,rt,rd為IF/ID register,EX用的為ID/EX register,以此類推
 ## 遇到問題
 
 ## 分工

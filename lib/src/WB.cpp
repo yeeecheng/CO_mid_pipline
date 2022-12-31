@@ -16,7 +16,7 @@ WB::WB(){
 }
 
 // 進入WB
-// 傳入MEM的opcode, signal, rs, rt, rd, ALUresult, ReadmemValue, 還有暫存器
+// 傳入MEM的opcode, signal, rs, rt, rd, ALUresult, ReadmemValue, register
 void WB::intoWB(string op, string sig, int s, int t, int d, int rwv, int rmv, int *reg){
     
     // 存入WB對應到的變數中
