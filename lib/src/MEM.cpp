@@ -39,8 +39,8 @@ void MEM::intoMEM(string op, string sig, int s, int t, int d, int alu_result, in
     if(signal[3] == '1'){
         ReadmemValue = mem[ALUresult];
     }
-    // 若MemRead=0，且MemWrite=1，則把資料寫入mem且ALUresult的位置(opcode是sw)
-    else if(signal[3] == '0' && signal[4] == '1'){
+    // 若MemWrite=1，則把資料寫入mem且ALUresult的位置(opcode是sw)
+    else if(signal[4] == '1'){
         mem[ALUresult] = write_data;
     }
 }

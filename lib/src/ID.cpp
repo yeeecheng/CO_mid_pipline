@@ -3,13 +3,14 @@
 #include <iomanip>
 using namespace std;
 
-// ID建構值，初始化opcode, signal, rs, rt, rd, reg1, reg2
+// ID建構值，初始化opcode, signal, rs, rt, rd, offset, reg1, reg2
 ID::ID(){
     opcode = "null";
     signal = "null";
     rs = -1;
     rt = -1;
     rd = -1;
+    offset = -1;
     reg1 = -1;
     reg2 = -1;
 }
@@ -74,6 +75,8 @@ void ID::decode(vector<string> o){
         rt = stoi(o[2].substr(o[2].find('$')+1, o[2].length()));
         offset = stoi(o[3]);
     }
+
+    
 
 }
 
