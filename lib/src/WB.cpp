@@ -17,7 +17,7 @@ WB::WB(){
 
 // 進入WB
 // 傳入MEM的opcode, signal, rs, rt, rd, ALUresult, ReadmemValue, register
-void WB::intoWB(string op, string sig, int s, int t, int d, int rwv, int rmv, int *reg){
+void WB::intoWB(string op, string sig, int s, int t, int d, int regWriteValue, int readMemValue, int *reg){
     
     // 存入WB對應到的變數中
     opcode=op;
@@ -32,16 +32,17 @@ void WB::intoWB(string op, string sig, int s, int t, int d, int rwv, int rmv, in
     rs=s;
     rt=t;
     rd=d;
-    // RegWriteValue = ALUresult
-    RegWriteValue = rwv;
 
-    // 若opcode是lw，則把暫存器rt的位置存入ReadmemValue
-    if(opcode == "lw"){
-        reg[rt] = rmv;
-    }
-    // 若opcode是add或sub，則把暫存器rd的位置存入RegWriteValue
-    else if(opcode == "add" || opcode == "sub"){
-        reg[rd] = RegWriteValue;
+    // 若RegWrite=1，則寫入reg
+    if(signal[5] == '1'){
+        // 若MemtoReg=1，則把readMemValue更新到暫存器rt的位置(opcode = lw)
+        if(signal[6] == '1'){
+            reg[rt] = readMemValue;
+        }
+        // 若MemtoReg=0，則把regWriteValue(mem的ALUresult)更新到暫存器rd的位置(opcode = add or sub)
+        else if(signal[6] == '0'){
+            reg[rd] = regWriteValue;
+        }
     }
 }
 

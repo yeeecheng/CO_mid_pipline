@@ -34,6 +34,14 @@ void ID::intoID(vector<string> o, int *reg){
     rd=0;
     offset=0;
 
+    // 指令解碼
+    this->decode(o);
+
+    // 讀完 rt, rs後，會再去讀對應到的暫存器
+    this->readReg(reg);
+}
+
+void ID::decode(vector<string> o){
     // 若opcode是lw，signal會是0101011
     // 其指令會是lw rt, offset(rs)的形式，處理字串存入對應到的變數
     if(opcode == "lw"){
@@ -67,8 +75,6 @@ void ID::intoID(vector<string> o, int *reg){
         offset = stoi(o[3]);
     }
 
-    // 讀完 rt, rs後，會再去讀對應到的暫存器
-    this->readReg(reg);
 }
 
 // 使用rs, rt讀取暫存器

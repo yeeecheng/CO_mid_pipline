@@ -83,7 +83,8 @@ CO-mid_pipline
 ## 程式說明
 程式碼中,我們的ID所用到的rs,rt,rd為IF/ID register,EX用的為ID/EX register,以此類推
 ## 遇到問題
-
+1. lw, sw的offset，在讀取之後，拿去req或mem的位置錢，都要先除以四，位置才會對，因為單位是word，網路上查了很多資料，有些沒有除，所以當時我們有討論一下
+2. 因為這個專題的程式碼是一體成型的，所以兩個人一起寫就很難分配工作，還要花時間去理解對方怎麼寫
 ## 分工
 
 ## Contributors

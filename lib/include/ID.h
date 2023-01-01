@@ -13,9 +13,11 @@ class ID{
         
         ID();
         void intoID(vector<string>, int *);
+        void decode(vector<string>);
         void readReg(int *);
         bool beq();
         void printResult();
+        
         
         // opcode是指令
         string opcode;

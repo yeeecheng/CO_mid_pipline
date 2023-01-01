@@ -19,7 +19,7 @@ MEM::MEM(){
 
 // 進入MEM
 // 傳入EX的opcode, signal, rs, rt, rd, ALU result, reg2, memory
-void MEM::intoMEM(string op, string sig, int s, int t, int d, int alu_result, int wd, int *mem){
+void MEM::intoMEM(string op, string sig, int s, int t, int d, int alu_result, int write_data, int *mem){
     
     // 存入MEM對應到的變數中
     opcode=op;
@@ -34,14 +34,14 @@ void MEM::intoMEM(string op, string sig, int s, int t, int d, int alu_result, in
     }
     // 若opcode不是null，則切割signal字串
     signal="  "+sig.substr(2,7);
-    
-    // 若opcode是lw，則讀mem裡且位置是ALU result的資料
-    if(opcode == "lw"){
+
+    // 若MemRead=1，則讀取mem且位置是ALUresult的資料(opcode=lw)
+    if(signal[3] == '1'){
         ReadmemValue = mem[ALUresult];
     }
-    // 若opcode是sw，則把資料存到mem裡且位置是ALU result的位置
-    else if(opcode == "sw"){
-        mem[ALUresult] = wd;
+    // 若MemRead=0，且MemWrite=1，則把資料寫入mem且ALUresult的位置(opcode是sw)
+    else if(signal[3] == '0' && signal[4] == '1'){
+        mem[ALUresult] = write_data;
     }
 }
 
