@@ -22,9 +22,9 @@ Pipelined::Pipelined(){
 // 傳入所有指令
 void Pipelined::circle(vector<string> arr){
 
-
-    // 跑array裏element的數量
-    for(int index = 0; index<arr.size(); index++){
+    // 用index模擬PC的變化
+    // 跑array裏element的數量 index為第幾個指令
+    for(int index = 0; index < arr.size(); index++){
 
         // 使用do是，因為在again為false的情況下，至少跑一次
         do{
