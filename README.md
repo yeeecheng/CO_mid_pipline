@@ -80,7 +80,7 @@ CO-mid_pipline
 ## 程式流程及主要功能介紹
 <img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "70%">
 
-#### 提前說明
+#### 說明
 * 在ID所使用的值為IF/ID register中的值，在EX所用的值為ID/EX register中的值,以此類推。
 * 為了方便處理每個regiter都一定會傳入rs,rt,rd和offset，沒有用到的就會填0。
 * stall或是目前stage沒有指令，均會填入null做區別。
@@ -89,15 +89,16 @@ CO-mid_pipline
 
 ### Main.cpp : 
 - 程式的進入點。
-- 讀取MIPS指令並做字串處理。
+- 讀取MIPS指令，並做字串處理將每行指令分開。
 ### CPU_pipeline.cpp:
 - 將記憶體、暫存器與cycle數初始化。
 - 計算花費的cycle數，循環的順序為WB->MEM->EX->ID->IF。
 - 判斷EX hazard和MEM hazard情況
 ### IF:
-- 將讀入的指令以空白切分
+- 將讀入的指令字串切割，例如讀入add $1,$2,$3,處理後為[add,$1,$2,$3,]
 ### ID:
-- Decode將讀入的指令轉換成machine code，包括opcode, signal, rs, rt, rd, offset
+- Decode將讀入指令，根據對應的操作轉換成signal，例如：<br>讀到指令lw，轉換成0101011<br>讀到指令add或是sub，轉換成1000010<br>而指令rs,rt,rd或offset，則直接用字串處理取得使用，過程不會轉換成machine code。
+
 - 利用rs, rt取出要使用的暫存器存到reg1, reg2
 ### EX:
 - 根據opcode是add,sub,lw,sw，決定要執行哪種操作(ALUresult)
