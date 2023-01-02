@@ -110,6 +110,8 @@ CO-mid_pipline
 
 ## 程式重點
 
+> 更詳細的內容請詳閱程式碼註解！ 
+
 * ### Data Hazard判別
 ![image](https://user-images.githubusercontent.com/88101776/210197860-c670a2f4-91b8-43f5-9dc1-63d9aadee6e7.png)
 * ### Beq 判別，改變PC
