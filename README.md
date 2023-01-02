@@ -77,15 +77,15 @@ CO-mid_pipline
     └── q8.txt
 
 ```
-## 程式流程
+## 程式流程及主要功能介紹
 <img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "70%">
 
-程式可以分成main.cpp、CPU_pipeline.cpp和CPU pipeline的五個階段IF、ID、EX、MEM、WB：
-
-#### 事先說明
+#### 提前說明
 * 在ID所使用的值為IF/ID register中的值，在EX所用的值為ID/EX register中的值,以此類推。
 * 為了方便處理每個regiter都一定會傳入rs,rt,rd和offset，沒有用到的就會填0。
 * stall或是目前stage沒有指令，均會填入null做區別。
+
+### 程式可以分成main.cpp、CPU_pipeline.cpp和CPU pipeline的五個階段IF、ID、EX、MEM、WB：
 
 ### Main.cpp : 
 - 程式的進入點。
