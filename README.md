@@ -81,7 +81,7 @@ CO-mid_pipline
 ## 程式流程及主要功能介紹
 <img src="https://github.com/Sunny1928/CO_mid_pipline/blob/main/Flow_Chart.png" width = "70%">
 
-#### 說明
+#### 撰寫基礎
 * 在ID所使用的值為IF/ID register中的值，在EX所用的值為ID/EX register中的值,以此類推。
 * 為了方便處理每個regiter都一定會傳入rs,rt,rd和offset，沒有用到的就會填0。
 * stall或是目前stage沒有指令，均會填入null做區別。
@@ -93,6 +93,7 @@ CO-mid_pipline
 - 讀取MIPS指令，並做字串處理將每行指令分開。
 ### CPU_pipeline.cpp:
 - 將記憶體、暫存器與cycle數初始化。
+- 使用index模擬PC變化
 - 計算花費的cycle數，循環的順序為WB->MEM->EX->ID->IF。
 - 判斷EX hazard和MEM hazard情況
 ### IF:
