@@ -82,6 +82,11 @@ CO-mid_pipline
 
 程式可以分成main.cpp、CPU_pipeline.cpp和CPU pipeline的五個階段IF、ID、EX、MEM、WB：
 
+#### 事先說明
+* 在ID所使用的值為IF/ID register中的值，在EX所用的值為ID/EX register中的值,以此類推。
+* 為了方便處理每個regiter都一定會傳入rs,rt,rd和offset，沒有用到的就會填0。
+* stall或是目前stage沒有指令，均會填入null做區別。
+
 ### Main.cpp : 
 - 程式的進入點。
 - 讀取MIPS指令並做字串處理。
@@ -103,8 +108,15 @@ CO-mid_pipline
 - 如果MemtoReg為1，則從記憶體取出的值，且RegWrite為1，更新到暫存器rt中。
 - 如果MemtoReg為0，則把從ALU中計算出的值，且RegWrite為1，更新到暫存器rd中。
 
-## 程式說明
-程式碼中,我們的ID所用到的rs,rt,rd為IF/ID register,EX用的為ID/EX register,以此類推
+## 程式重點
+
+* ### Data Hazard判別
+![image](https://user-images.githubusercontent.com/88101776/210197860-c670a2f4-91b8-43f5-9dc1-63d9aadee6e7.png)
+* ### Beq 判別，改變PC
+![image](https://user-images.githubusercontent.com/88101776/210197894-642fc4f8-d4f9-458a-9c54-51113ec8c48d.png)
+
+
+
 ## 遇到問題
 1. 指令讀取處理
    * prob: 轉成machine code後，指令在ID階段讀取不方便。
