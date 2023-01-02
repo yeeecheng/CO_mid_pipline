@@ -120,6 +120,8 @@ CO-mid_pipline
 * ### Beq 判別，改變PC
 ![image](https://user-images.githubusercontent.com/88101776/210197894-642fc4f8-d4f9-458a-9c54-51113ec8c48d.png)
 
+## 執行結果
+![image](https://user-images.githubusercontent.com/88101776/210249312-6800dd11-4fee-4b46-94d2-cb5da4afdacf.png)
 
 
 ## 遇到問題
